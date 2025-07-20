@@ -23,8 +23,9 @@ app.patch('/contact/unsubscribe/:email', async (req: Request, res: Response) => 
   try {
     const { email } = req.params;
     await unsubscribeContact(email);
-    res.status(204).send();
-  } catch (error) {
+    res.status(204).json({ message: "Contact unsubscribed successfully" });
+  } catch (err) {
+    const error = err as Error;
     console.error({ error });
     res.status(400).json({ error });
   }
