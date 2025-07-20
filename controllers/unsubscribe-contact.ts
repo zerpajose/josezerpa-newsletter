@@ -11,5 +11,5 @@ export async function unsubscribeContact(email: string) {
     throw new Error('Contact not found');
   }
 
-  await document.docs[0].ref.update({ unsubscribed: true });
+  document.docs[0].ref.update({ unsubscribed: true });
 }
