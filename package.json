@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "start": "node ./dist/app.js"
+    "start": "node ./dist/server.js"
   },
   "keywords": [],
   "author": "Jose Zerpa",

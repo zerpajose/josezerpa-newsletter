@@ -2,7 +2,8 @@ import app from './app.js';
 import config from './config/environment.js';
 
 (async () => {
-  app.listen(config.port, () => {
-    console.log(`Server started on port ${config.port}`);
+  const port = process.env.PORT ? Number(process.env.PORT) : 8080;
+  app.listen(port, () => {
+    console.log(`Server started on port ${port}`);
   });
 })();
