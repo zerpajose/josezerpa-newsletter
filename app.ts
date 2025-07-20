@@ -19,7 +19,7 @@ app.post('/contact', async (req: Request, res: Response) => {
   }
 });
 
-app.delete('/contact/:email', async (req: Request, res: Response) => {
+app.delete('/contact/unsubscribe/:email', async (req: Request, res: Response) => {
   try {
     const { email } = req.params;
     await deleteContact(email);
