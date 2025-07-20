@@ -1,9 +1,8 @@
 import app from './app.js';
-
-const port = process.env.PORT || 8080;
+import config from './config/environment.js';
 
 (async () => {
-  app.listen(port, () => {
-    console.log(`Server started on port ${port}`);
+  app.listen(config.port, () => {
+    console.log(`Server started on port ${config.port}`);
   });
 })();
