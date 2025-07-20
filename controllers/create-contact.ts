@@ -1,5 +1,6 @@
-import { randomUUID } from 'crypto';
+import { Resend } from 'resend';
 import config from '../config/environment.js';
+import { getSecret } from '../helpers/secret-manager.js'
 import { CreateContactInput } from '../types/common.types.js';
 import { db } from '../clients/firestore.client.js';
 
@@ -7,24 +8,16 @@ const collectionName = config.contactsCollectionName;
 const collection = db.collection(collectionName);
 
 export async function createContact(contact: CreateContactInput) {
+  const resendApikey = await getSecret(config.googleProjectId, config.resendSecretId);
+  const resend = new Resend(resendApikey);
+
   const { name, familyName, email, unsubscribed = false } = contact;
-  const document = await collection.where('email', '==', email).get();
 
-  if (!document.empty) {
-    throw new Error('Email already exists, you can only update it');
-  }
-
-  const id = randomUUID();
-
-  const docRef = collection.doc(id);
-
-  await docRef.set({
-    id,
-    name,
-    familyName,
+  resend.contacts.create({
     email,
+    firstName: name,
+    lastName: familyName,
     unsubscribed,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    audienceId: config.resendAudienceId,
   });
 }
