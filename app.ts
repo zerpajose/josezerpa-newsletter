@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 import { createContact } from "./controllers/create-contact.js";
-import { deleteContact } from "./controllers/delete-contact.js";
+import { unsubscribeContact } from "./controllers/unsubscribe-contact.js";
 import { CreateContactInputSchema } from "./validations/schemas.js";
 
 const app = express();
@@ -19,10 +19,10 @@ app.post('/contact', async (req: Request, res: Response) => {
   }
 });
 
-app.delete('/contact/unsubscribe/:email', async (req: Request, res: Response) => {
+app.patch('/contact/unsubscribe/:email', async (req: Request, res: Response) => {
   try {
     const { email } = req.params;
-    await deleteContact(email);
+    await unsubscribeContact(email);
     res.status(204).send();
   } catch (error) {
     console.error({ error });

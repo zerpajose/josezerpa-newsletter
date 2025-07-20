@@ -4,7 +4,7 @@ import { db } from '../clients/firestore.client.js';
 const collectionName = config.contactsCollectionName;
 const collection = db.collection(collectionName);
 
-export async function deleteContact(email: string) {
+export async function unsubscribeContact(email: string) {
   const document = await collection.where('email', '==', email).get();
 
   if (document.empty) {
