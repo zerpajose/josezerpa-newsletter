@@ -13,6 +13,7 @@ app.post('/contact', async (req: Request, res: Response) => {
     await createContact(contactData);
     res.status(201).json({ message: "Contact created successfully" });
   } catch (error) {
+    console.error({ error });
     res.status(400).json({ error });
   }
 });
